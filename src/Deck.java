@@ -1,36 +1,46 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Deck {
+    private List<Card> cartas;
 
-	//Posibles valores de los atributos para construir objetos Card
-	private final String[] PALO = {"corazones", "diamantes", "trébol", "picas"};
-	private final String[] COLOR = {"rojo", "negro"};
-	private final String[] VALOR = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "A", "J", "Q", "K"};
+    public Deck() {
+        cartas = new ArrayList<>();
+        iniciarDeck();
+    }
 
-	//Mazo de cartas
-	private ArrayList<Card> deck;
+    private void iniciarDeck() {
+        for (String palo : Card.Palo) {
+            for (String valor : Card.Valor) {
+                cartas.add(new Card(palo, valor));
+            }
+        }
+    }
 
-	public Deck() {
-		deck = new ArrayList<Card>();
+    public void shuffle() {
+        Collections.shuffle(cartas);
+        System.out.println("Se mezcló el Deck.");
+    }
 
-		//Construimos cartas de color ROJO
-		for (int palo = 0; palo < 2; palo++) //Se usa PALO[0] y PALO[1]
-			for (int valor = 0; valor < VALOR.length; valor++)
-				deck.add(new Card(PALO[palo], COLOR[0], VALOR[valor]));
+    public void head() {
+        Card primercarta = cartas.remove(0);
+        System.out.println(primercarta);
+        System.out.println("Quedan " + cartas.size() + " cartas en el Deck.");
+    }
 
-		//Construimos cartas de color NEGRO
-		for (int palo = 2; palo < 4; palo++) //Se usa PALO[2] y PALO[3]
-			for (int valor = 0; valor < VALOR.length; valor++)
-				deck.add(new Card(PALO[palo], COLOR[1], VALOR[valor]));
-	}
-	
-	/**
-	 * Retorna cuantas cartas tiene este mazo.
-	 * El tamaño correcto tras la creación debería ser 52 cartas.
-	 * @return Tamaño actual del mazo.
-	 */
-	public int getSize() {
-		return deck.size();
-	}
+    public void pick() {
+        int randomIndex = (int) (Math.random() * cartas.size());
+        Card pickedCard = cartas.remove(randomIndex);
+        System.out.println(pickedCard);
+        System.out.println("Quedan " + cartas.size() + " cartas en el Deck.");
+    }
 
+    public void hand() {
+        for (int i = 0; i < 5; i++) {
+            Card dealtCard = cartas.remove(0);
+            System.out.println(dealtCard);
+        }
+        System.out.println("Quedan " + cartas.size() + " cartas en el Deck.");
+    }
 }
