@@ -1,37 +1,28 @@
-public class Card {
-	
-	private String palo;
-	private String color;
-	private String valor;
-	
-	public Card(String palo, String color, String valor) {
-		this.palo = palo;
-		this.color = color;
-		this.valor = valor;
-	}
+class Card {
+    public static String[] Palo = {"tréboles", "corazones", "picas", "diamantes"};
+    public static String[] Color = {"negro", "rojo"};
+    public static String[] Valor = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "A", "J", "Q", "K"};
 
-	public String getPalo() {
-		return palo;
-	}
+    private String palo;
+    private String color;
+    private String valor;
 
-	public void setPalo(String palo) {
-		this.palo = palo;
-	}
+    public Card(String palo, String valor) {
+        this.palo = palo;
+        this.valor = valor;
+        this.color = determinarColor(palo);
+    }
 
-	public String getColor() {
-		return color;
-	}
+    private String determinarColor(String palo) {
+        if (palo.equals("corazones") || palo.equals("diamantes")) {
+            return "rojo";
+        } else {
+            return "negro";
+        }
+    }    
 
-	public void setColor(String color) {
-		this.color = color;
-	}
-
-	public String getValor() {
-		return valor;
-	}
-
-	public void setValor(String valor) {
-		this.valor = valor;
-	}
-
+    public String toString() {
+        return "{" +  palo + "," + color + "," + valor + "}";
+    }
+}
 }
